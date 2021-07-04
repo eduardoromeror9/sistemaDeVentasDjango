@@ -69,7 +69,9 @@
             <h6 class="collapse-header">Catalogos de Inventarios</h6>
             <a class="collapse-item" href="{% url 'inv:categoria_list' %}">Categorias</a>
             <a class="collapse-item" href="{% url 'inv:subcategoria_list' %}">SubCategorias</a>
-
+            <a class="collapse-item" href="{% url 'inv:marca_list' %}">Marca</a>
+            <a class="collapse-item" href="{% url 'inv:um_list' %}">Unida de Medida</a>
+            <a class="collapse-item" href="{% url 'inv:producto_list' %}">Producto</a>
           </div>
         </div>
       </li>
@@ -392,6 +394,8 @@
     </div>
   </div>
 
+  <div class="modal fade" id="popup"></div>
+
   <!-- Bootstrap core JavaScript-->
   <script src=" {% static 'base/vendor/jquery/jquery.min.js' %}"></script>
   <script src=" {% static 'base/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -407,6 +411,32 @@
   <script src="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
 
   {% block js_page %} {% endblock js_page %}
+
+  {% block control_modal %}
+  <script>
+    function abrir_modal(url)
+    {
+
+      $("#popup").load(url, function(){
+        $(this).modal({
+          backdrop:'static',
+          keyboard: false
+        })
+        $(this).modal('show');
+      });
+      return false;
+    }
+
+    function cerrar_modal()
+    {
+      $('#popup').modal('hide');
+      return false;
+    }
+
+  </script>
+
+  {% endblock control_modal %}
+
 </body>
 
 </html>
