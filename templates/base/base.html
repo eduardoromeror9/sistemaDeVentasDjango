@@ -72,10 +72,14 @@
             <a class="collapse-item" href="{% url 'inv:marca_list' %}">Marca</a>
             <a class="collapse-item" href="{% url 'inv:um_list' %}">Unida de Medida</a>
             <a class="collapse-item" href="{% url 'inv:producto_list' %}">Producto</a>
+            <h6 class="collapse-header">Catálogos de Compras:</h6>
+            
+            {% if perms.cmp.view_proveedor %}
+            <a class="collapse-item" href="{% url 'cmp:proveedor_list' %}">Proveedores</a>
+            {% endif %}
           </div>
         </div>
       </li>
-
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
@@ -307,8 +311,8 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Eduardo Romero</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.username }}</span>
+                <img class="img-profile rounded-circle" src="{% static 'base/img/user1.png' %}">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
