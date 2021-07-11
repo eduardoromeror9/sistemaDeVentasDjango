@@ -22,6 +22,10 @@
   <!-- Custom styles for this page -->
   <link href="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
 
+  <!-- Jquery Confirm -->
+  <link href="{% static 'base/vendor/jquery_confirm/jquery-confirm.min.css' %}" rel="stylesheet">
+
+
 </head>
 
 <body id="page-top" class="bg-gradient-primary">
@@ -408,13 +412,15 @@
   <script src="{% static 'base/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="{% static 'base/vendor/js/sb-admin-2.min.js' %}"></script>
+  <script src="{% static 'base/js/sb-admin-2.min.js' %}"></script>
 
   <!-- Page level plugins -->
   <script src="{% static 'base/vendor/datatables/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
 
-  {% block js_page %} {% endblock js_page %}
+  <script src="{% static 'base/vendor/jquery_confirm/jquery-confirm.min.js' %}"></script>
+
+
 
   {% block control_modal %}
   <script>
@@ -437,9 +443,21 @@
       return false;
     }
 
+    function mensaje(msg,color='green')
+    {
+      $.alert({
+        title:'',
+        theme:'material',
+        type:color,
+        content:msg
+      });
+    }
+
   </script>
 
   {% endblock control_modal %}
+  
+  {% block js_page %} {% endblock js_page %}
 
 </body>
 
