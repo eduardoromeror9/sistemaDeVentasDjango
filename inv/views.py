@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views import generic
 from .models import Categoria, SubCategoria, Marca, UnidadMedida, Producto
@@ -10,7 +10,8 @@ from django.contrib import messages
 
 
 # Create your views here.
-class CategoriaView(LoginRequiredMixin, generic.ListView):
+class CategoriaView(LoginRequiredMixin, PermissionRequiredMixin ,generic.ListView):
+    permission_required = 'inv.view_categoria'
     model = Categoria
     template_name = 'inv/categoria_list.html'
     context_object_name = 'obj'
@@ -54,7 +55,8 @@ class CategoriaDel(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy('inv:categoria_list')
 
 
-class SubcategoriaView(LoginRequiredMixin, generic.ListView):
+class SubcategoriaView(LoginRequiredMixin, PermissionRequiredMixin ,generic.ListView):
+    permission_required = 'inv.view_subcategoria'
     model = SubCategoria
     template_name = 'inv/subcategoria_list.html'
     context_object_name = 'obj'
