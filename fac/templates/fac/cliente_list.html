@@ -50,7 +50,7 @@
           <td>{{item.apellidos}}</td>
           <td>{{ item.tipo }}</td>
           <td>{{ item.celular }}</td>
-          <td>{#item.estado|yesno:"Activo,Inactivo"#}
+          <td>
             <div onclick="inactivar({{item.id}})">
               {% if item.estado %}
               <i class="far fa-thumbs-up text-primary"></i>
@@ -104,9 +104,6 @@
       }
     });
   }
-// Call the dataTables jQuery plugin
-// $(document).ready(function() {
-//  $('.table').DataTable();
 //});
 </script>
 {% endblock %}
