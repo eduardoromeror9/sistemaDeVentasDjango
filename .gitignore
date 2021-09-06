@@ -171,3 +171,4 @@ cython_debug/
 
 # Tabla de pronosticos
 table.py
+/proPython/

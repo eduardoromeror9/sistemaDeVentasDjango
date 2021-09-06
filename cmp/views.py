@@ -1,8 +1,9 @@
+from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.urls import reverse_lazy
 import datetime
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required, permission_required
@@ -17,6 +18,16 @@ from inv.models import Producto
 
 # Create your views here.
 
+class MixinFormInvalid:    
+    
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        
+        if self.request.is_ajax():
+            return JsonResponse(form.errors, status=400)
+        else:
+            return response
+
 
 class ProveedorView(SinPrivilegios, generic.ListView):
     model = Proveedor
@@ -25,7 +36,7 @@ class ProveedorView(SinPrivilegios, generic.ListView):
     permission_required= "cmp.view_proveedor"
     
 
-class ProveedorNew(SuccessMessageMixin, SinPrivilegios ,generic.CreateView):
+class ProveedorNew(SuccessMessageMixin, MixinFormInvalid ,SinPrivilegios ,generic.CreateView):
     model= Proveedor
     template_name= "cmp/proveedor_form.html"
     context_object_name = 'obj'
@@ -37,10 +48,10 @@ class ProveedorNew(SuccessMessageMixin, SinPrivilegios ,generic.CreateView):
     def form_valid(self, form):
         form.instance.uc = self.request.user
         # print(self.request.user.id)
-        return super().form_valid(form)
+        return super().form_valid(form)            
 
 
-class ProveedorEdit(SuccessMessageMixin, SinPrivilegios ,generic.UpdateView):
+class ProveedorEdit(SuccessMessageMixin, MixinFormInvalid ,SinPrivilegios ,generic.UpdateView):
     model= Proveedor
     template_name= "cmp/proveedor_form.html"
     context_object_name = 'obj'
